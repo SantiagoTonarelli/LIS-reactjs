@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
 
-import imageIcon from "../images/octopus-dark.png";
+import imageIcon from "../images/logo-LIS.png";
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -58,7 +58,7 @@ export const SlideBar = () => {
 		>
 			<ListItem>
 				<Link className="link" exact to="/">
-					<img alt="stack overflow" src={imageIcon} />
+					<img className="logo" alt="stack overflow" src={imageIcon} />
 				</Link>
 			</ListItem>
 			<Divider />
