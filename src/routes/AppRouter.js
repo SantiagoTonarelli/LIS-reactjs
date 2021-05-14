@@ -8,8 +8,8 @@ import {SlideBar} from "../containers/SlideBar";
 export const AppRouter = () => {
 	return (
 		<>
-			<SlideBar />
 			<Router>
+				<SlideBar />
 				<Switch>
 					<Route exact path="/form" component={Form} />
 					<Route exact path="/activities" component={Activities} />

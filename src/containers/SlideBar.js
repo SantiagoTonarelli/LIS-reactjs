@@ -10,6 +10,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import {Link} from "react-router-dom";
+
+import imageIcon from "../images/octopus-dark.png";
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -53,11 +56,21 @@ export const SlideBar = () => {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
+			<ListItem>
+				<Link className="link" exact to="/">
+					<img alt="stack overflow" src={imageIcon} />
+				</Link>
+			</ListItem>
 			<Divider />
 			<List>
-				{["Agendarme a una actividad", "Mis actividades"].map((text, index) => (
-					<ListItem button key={text}>
-						<ListItemText primary={text} />
+				{[
+					{text: "Agendarme a una actividad", route: "/activities"},
+					{text: "Mis actividades", route: "/form"},
+				].map((value, index) => (
+					<ListItem button key={value.text}>
+						<Link className="link" exact to={value.route}>
+							<ListItemText primary={value.text} />
+						</Link>
 					</ListItem>
 				))}
 			</List>
@@ -66,9 +79,9 @@ export const SlideBar = () => {
 
 	return (
 		<div>
-			{["left"].map((anchor) => (
-				<React.Fragment key={anchor}>
-					<div className={classes.root} >
+			{
+				<React.Fragment key={"left"}>
+					<div className={classes.root}>
 						<AppBar position="top" color="inherit">
 							<Toolbar>
 								<IconButton
@@ -76,7 +89,7 @@ export const SlideBar = () => {
 									className={classes.menuButton}
 									color="inherit"
 									aria-label="menu"
-									onClick={toggleDrawer(anchor, true)}
+									onClick={toggleDrawer("left", true)}
 								>
 									<MenuIcon />
 								</IconButton>
@@ -84,14 +97,14 @@ export const SlideBar = () => {
 						</AppBar>
 					</div>
 					<Drawer
-						anchor={anchor}
-						open={state[anchor]}
-						onClose={toggleDrawer(anchor, false)}
+						anchor={"left"}
+						open={state["left"]}
+						onClose={toggleDrawer("left", false)}
 					>
-						{list(anchor)}
+						{list("left")}
 					</Drawer>
 				</React.Fragment>
-			))}
+			}
 		</div>
 	);
 };
