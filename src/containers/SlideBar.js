@@ -13,6 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
 
 import imageIcon from "../images/logo-LIS.png";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -21,14 +22,24 @@ const useStyles = makeStyles((theme) => ({
 	fullList: {
 		width: "auto",
 	},
-	root: {
-		flexGrow: 1,
-	},
 	menuButton: {
 		marginRight: theme.spacing(2),
 	},
 	title: {
 		flexGrow: 1,
+	},
+	root: {
+		flexGrow: 1,
+	},
+	logo: {
+		width: "25ch",
+	},
+	logoAppBar: {
+		width: "15ch",
+		justify:"center",
+				alignItems:"center",
+		paddingTop: theme.spacing(0),
+		paddingButtom: theme.spacing(0),
 	},
 }));
 
@@ -58,7 +69,11 @@ export const SlideBar = () => {
 		>
 			<ListItem>
 				<Link className="link" exact to="/">
-					<img className="logo" alt="stack overflow" src={imageIcon} />
+					<img
+						className={classes.logo}
+						alt="stack overflow"
+						src={imageIcon}
+					/>
 				</Link>
 			</ListItem>
 			<Divider />
@@ -66,7 +81,7 @@ export const SlideBar = () => {
 				{[
 					{text: "Agendarme a una actividad", route: "/activities"},
 					{text: "Mis actividades", route: "/form"},
-				].map((value, index) => (
+				].map((value) => (
 					<ListItem button key={value.text}>
 						<Link className="link" exact to={value.route}>
 							<ListItemText primary={value.text} />
@@ -78,33 +93,35 @@ export const SlideBar = () => {
 	);
 
 	return (
-		<div>
-			{
-				<React.Fragment key={"left"}>
-					<div className={classes.root}>
-						<AppBar position="top" color="inherit">
-							<Toolbar>
-								<IconButton
-									edge="start"
-									className={classes.menuButton}
-									color="inherit"
-									aria-label="menu"
-									onClick={toggleDrawer("left", true)}
-								>
-									<MenuIcon />
-								</IconButton>
-							</Toolbar>
-						</AppBar>
-					</div>
-					<Drawer
-						anchor={"left"}
-						open={state["left"]}
-						onClose={toggleDrawer("left", false)}
-					>
-						{list("left")}
-					</Drawer>
-				</React.Fragment>
-			}
-		</div>
+		<>
+			<div className={classes.root}>
+				<AppBar position="static" color="primary">
+					<Toolbar>
+						<IconButton
+							edge="start"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={toggleDrawer("left", true)}
+						>
+							<MenuIcon />
+						</IconButton>
+						<Typography variant="h6" className={classes.title}/>
+						<img
+							className={classes.logoAppBar}
+							alt="stack overflow"
+							src={imageIcon}
+						/>
+					</Toolbar>
+				</AppBar>
+			</div>
+			<Drawer
+				anchor={"left"}
+				open={state["left"]}
+				onClose={toggleDrawer("left", false)}
+			>
+				{list("left")}
+			</Drawer>
+		</>
 	);
 };
