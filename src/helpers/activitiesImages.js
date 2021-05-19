@@ -1,0 +1,1 @@
+export const activitiesImages = require.context("../images/activities", true);

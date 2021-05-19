@@ -7,6 +7,8 @@ import {
 } from "@material-ui/core";
 import {Typography} from "@material-ui/core";
 import React from "react";
+import { activities } from "../data/activitiesData";
+import { activitiesImages } from "../helpers/activitiesImages";
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -24,29 +26,6 @@ const useStyles = makeStyles((theme) => {
 		},
 	};
 });
-
-const activities = [
-	{
-		img: "https://fundaciondelcorazon.com/images/stories/iStock-949190756.jpg",
-		title: "Hola",
-	},
-	{
-		img: "https://fundaciondelcorazon.com/images/stories/iStock-949190756.jpg",
-		title: "Hola",
-	},
-	{
-		img: "https://fundaciondelcorazon.com/images/stories/iStock-949190756.jpg",
-		title: "Hola",
-	},
-	{
-		img: "https://fundaciondelcorazon.com/images/stories/iStock-949190756.jpg",
-		title: "Hola",
-	},
-	{
-		img: "https://fundaciondelcorazon.com/images/stories/iStock-949190756.jpg",
-		title: "Hola",
-	},
-];
 
 export const Activities = () => {
 	const classes = useStyles();
@@ -71,12 +50,11 @@ export const Activities = () => {
 				{
 					//TODO si no hay actividades
 					activities.map((activity) => (
-						<ButtonBase className={classes.buttomActivity}>
-							<GridListTile
-								key={activity.img}
+						<ButtonBase className={classes.buttomActivity} key={activity.img}>
+							<GridListTile								
 								className={classes.activity}
-							>
-								<img src={activity.img} alt={activity.title} />
+							> 
+								<img src={activitiesImages(`./${activity.img}`)} alt={activity.title} />
 								<GridListTileBar title={activity.title} />
 							</GridListTile>
 						</ButtonBase>
