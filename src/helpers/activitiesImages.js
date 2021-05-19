@@ -1,1 +1,2 @@
-export const activitiesImages = require.context("../images/activities", true);
+export const activitiesImages = (name) =>
+	require.context("../images/activities", true)(name)?.default;
