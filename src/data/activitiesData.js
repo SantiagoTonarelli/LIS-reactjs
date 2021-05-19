@@ -3,7 +3,7 @@ export const activities = [
 	{
 		img: "aerobica.png",
 		title: "Aeróbica",
-	},/*
+	},
 	{
 		img: "basquetbol.png",
 		title: "Básquetbol",
@@ -19,6 +19,6 @@ export const activities = [
 	{
 		img: "musculacion.png",
 		title: "Musculación",
-	},*/
+	},
 	
 ];
