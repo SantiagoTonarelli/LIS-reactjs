@@ -44,7 +44,7 @@ export const Activities = () => {
 			<Grid
 				container
 				direction="row"
-				justify="space-evenly"
+				justify="center"
 				alignItems="center"
 			>
 				{
