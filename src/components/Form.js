@@ -59,22 +59,26 @@ export function Form() {
 
   const onNameChange = () => {
     setHelperNameText("");
-	setErrorName(false);
+    setErrorName(false);
   };
 
   const onCiChange = () => {
     setHelperCiText("");
-	setErrorCi(false);
+    setErrorCi(false);
   };
 
   const onDateChange = (date, value) => {
     setDate(date);
     setInputDateValue(value);
+    setHelperDateText("");
+    setErrorDate(false);
   };
 
   const onMomentChange = (moment, value) => {
     setMoment(moment);
     setInputMomentValue(value);
+    setHelperMomentText("");
+    setErrorMoment(false);
   };
 
   const dateFormatter = (str) => {
@@ -91,15 +95,14 @@ export function Form() {
 
   const isFormValid = (data) => {
     let isValid = true;
-    const { name, ci, date, hour } = data;
+    const { name, ci } = data;
     console.log(data);
     if (!name || name.trim().length === 0) {
       setHelperNameText("El nombre es requerido");
       setErrorName(true);
       isValid = false;
-    }
-    else if (!name.trim().match(/^[A-Za-z\s]+$/)) {
-      setHelperNameText("El nombre es inválido");
+    } else if (!name.trim().match(/^[A-Za-z\s]+$/)) {
+      setHelperNameText("El nombre no es válido");
       setErrorName(true);
       isValid = false;
     }
@@ -107,10 +110,21 @@ export function Form() {
       setHelperCiText("La cédula es requerida");
       setErrorCi(true);
       isValid = false;
-    } 
-	else if (ci.trim().length !== 7 && ci.trim().length !== 8) {
-      setHelperCiText("La cédula debe ser válida");
+    } else if (ci.trim().length !== 7 && ci.trim().length !== 8) {
+      setHelperCiText("La cédula no es válida");
       setErrorCi(true);
+      isValid = false;
+    }    
+    const isInvalidDate = inputDateValue <= moment().format("DD/MM/yyyy");
+    if (!inputDateValue || isInvalidDate) {
+      setHelperDateText("La fecha debe ser posterior al día actual");
+      setErrorDate(true);
+      isValid = false;
+    }
+    const isInvalidHour = inputMomentValue < "08:00" || inputMomentValue > "22:00";
+    if (!inputMomentValue || isInvalidHour) {
+      setHelperMomentText("La hora debe estar entre las 08:00 y 22:00");
+      setErrorMoment(true);
       isValid = false;
     }
 
@@ -143,7 +157,7 @@ export function Form() {
           id="standard-error-helper-text"
           {...register("name")}
           helperText={helperNameText}
-		  onChange={onNameChange}
+          onChange={onNameChange}
         />
 
         <TextField
@@ -152,8 +166,8 @@ export function Form() {
           error={errorCi}
           helperText={helperCiText}
           id="standard-error-helper-text"
-          {...register("ci")}     
-		  onChange={onCiChange}     
+          {...register("ci")}
+          onChange={onCiChange}
         />
       </Grid>
 
@@ -167,7 +181,7 @@ export function Form() {
             label="Selecione una fecha"
             format="DD/MM/yyyy"
             name="date"
-			{...register("date")}  
+            {...register("date")}
             value={selectedDate}
             inputValue={inputDateValue}
             onChange={onDateChange}
@@ -183,9 +197,10 @@ export function Form() {
           <KeyboardTimePicker
             margin="normal"
             id="time-picker"
+            ampm={false}
             label="Seleccione una hora"
             name="moment"
-			{...register("hour")}  
+            {...register("hour")}
             value={selectedMoment}
             inputValue={inputMomentValue}
             onChange={onMomentChange}
