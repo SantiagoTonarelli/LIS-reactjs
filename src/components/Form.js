@@ -1,4 +1,4 @@
-import React, { isValidElement, useState } from "react";
+import React, { isValidElement, useRef, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -7,7 +7,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography, CircularProgress, Fade } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import moment from "moment";
 import MomentUtils from "@date-io/moment";
@@ -56,6 +56,8 @@ export function Form() {
   const [inputMomentValue, setInputMomentValue] = useState(
     moment().format("HH:MM")
   );
+  const [query, setQuery] = useState("idle");
+  const timerRef = useRef();
 
   const onNameChange = () => {
     setHelperNameText("");
@@ -90,13 +92,24 @@ export function Form() {
       console.log("--------FORM OK-----------");
       //TODO submit
       //dispatch(startRegister(name, googleToken));
+      clearTimeout(timerRef.current);
+
+      if (query !== "idle") {
+        setQuery("idle");
+        return;
+      }
+
+      setQuery("progress");
+      timerRef.current = setTimeout(() => {
+        setQuery("success");
+      }, 3000);
     }
   };
 
   const isFormValid = (data) => {
     let isValid = true;
     const { name, ci } = data;
-    console.log(data);
+
     if (!name || name.trim().length === 0) {
       setHelperNameText("El nombre es requerido");
       setErrorName(true);
@@ -110,19 +123,26 @@ export function Form() {
       setHelperCiText("La cédula es requerida");
       setErrorCi(true);
       isValid = false;
-    } else if (ci.trim().length !== 7 && ci.trim().length !== 8) {
+    } else if (
+      (ci.trim().length !== 7 && ci.trim().length !== 8) ||
+      !name.trim().match(/^\d{7,8}$/)
+    ) {
       setHelperCiText("La cédula no es válida");
       setErrorCi(true);
       isValid = false;
-    }    
-    const isInvalidDate = inputDateValue <= moment().format("DD/MM/yyyy");
-    if (!inputDateValue || isInvalidDate) {
+    }
+    const isValidDate = moment(inputDateValue, "DD/MM/yyyy").isAfter(moment());
+    if (!inputDateValue || !isValidDate) {
       setHelperDateText("La fecha debe ser posterior al día actual");
       setErrorDate(true);
       isValid = false;
     }
-    const isInvalidHour = inputMomentValue < "08:00" || inputMomentValue > "22:00";
-    if (!inputMomentValue || isInvalidHour) {
+    const startTime = moment("08:00", "HH:mm");
+    const endTime = moment("22:00", "HH:mm");
+    const isValidTime =
+      moment(inputMomentValue, "HH:mm").isSameOrAfter(startTime) &&
+      moment(inputMomentValue, "HH:mm").isSameOrBefore(endTime);
+    if (!inputMomentValue || !isValidTime) {
       setHelperMomentText("La hora debe estar entre las 08:00 y 22:00");
       setErrorMoment(true);
       isValid = false;
@@ -130,6 +150,22 @@ export function Form() {
 
     return isValid;
   };
+
+  if (query === "progress") {
+    return (
+      <div>
+        <Fade
+          in={query === "progress"}
+          style={{
+            transitionDelay: query === "progress" ? "100ms" : "0ms",
+          }}
+          unmountOnExit
+        >
+          <CircularProgress />
+        </Fade>
+      </div>
+    );
+  }
 
   return (
     <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
