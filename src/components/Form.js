@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => {
       marginTop: theme.spacing(2),
       marginButtom: theme.spacing(2),
     },
+    progress: {
+      marginTop: theme.spacing(10),
+    },
   };
 });
 
@@ -90,19 +93,30 @@ export function Form() {
   const onSubmit = (data) => {
     if (isFormValid(data)) {
       console.log("--------FORM OK-----------");
-      //TODO submit
+      const dateToString = inputDateValue + " " + inputMomentValue;
+      const dateFormat = moment(dateToString, "DD/MM/yyyy HH:mm").toDate();
+      const activityData = {
+        activity: "natación",
+        name: data.name,
+        ci: data.ci,
+        date: dateFormat,
+      };
+      console.log(activityData);
+      //TODO guardar los datos (agendar)
       //dispatch(startRegister(name, googleToken));
       clearTimeout(timerRef.current);
 
       if (query !== "idle") {
+        //TODO ver si es necesario esto. Ver "Delayed appearance" https://material-ui.com/es/components/progress/
         setQuery("idle");
         return;
       }
-
       setQuery("progress");
       timerRef.current = setTimeout(() => {
         setQuery("success");
       }, 3000);
+
+      //TODO resetear campos para que se validen de nuevo (data)
     }
   };
 
@@ -114,7 +128,7 @@ export function Form() {
       setHelperNameText("El nombre es requerido");
       setErrorName(true);
       isValid = false;
-    } else if (!name.trim().match(/^[A-Za-z\s]+$/)) {
+    } else if (!/^[A-Za-z\s]+$/.test(name.trim())) {
       setHelperNameText("El nombre no es válido");
       setErrorName(true);
       isValid = false;
@@ -125,7 +139,7 @@ export function Form() {
       isValid = false;
     } else if (
       (ci.trim().length !== 7 && ci.trim().length !== 8) ||
-      !name.trim().match(/^\d{7,8}$/)
+      !/^\d{7,8}$/.test(ci.trim())
     ) {
       setHelperCiText("La cédula no es válida");
       setErrorCi(true);
@@ -153,7 +167,13 @@ export function Form() {
 
   if (query === "progress") {
     return (
-      <div>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        className={classes.progress}
+      >
         <Fade
           in={query === "progress"}
           style={{
@@ -161,9 +181,19 @@ export function Form() {
           }}
           unmountOnExit
         >
-          <CircularProgress />
+          <CircularProgress color="primary" thickness={4.0} size={90} />
         </Fade>
-      </div>
+
+        <Typography
+          align="center"
+          variant="h5"
+          component="h2"
+          gutterBottom
+          className={classes.title}
+        >
+          Procesando...
+        </Typography>
+      </Grid>
     );
   }
 
