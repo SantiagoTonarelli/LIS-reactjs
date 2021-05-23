@@ -11,6 +11,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 import imageIcon from "../images/logo-LIS.png";
 import {Typography} from "@material-ui/core";
@@ -107,6 +108,7 @@ export const SlideBar = () => {
 	return (
 		<>
 			<div className={classes.root}>
+				<CssBaseline />
 				<AppBar position="static" color="primary">
 					<Toolbar>
 						<IconButton

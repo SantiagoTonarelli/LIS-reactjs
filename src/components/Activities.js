@@ -1,24 +1,27 @@
 import {
-	ButtonBase,
+	Card,
+	CardActionArea,
+	CardContent,
+	CardMedia,
 	Grid,
-	GridListTile,
-	GridListTileBar,
 	makeStyles,
 } from "@material-ui/core";
 import {Typography} from "@material-ui/core";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router";
-import { addSelectedActivity } from "../actions/activities";
-import { activities } from "../data/activitiesData";
-import { activitiesImages } from "../helpers/activitiesImages";
+import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from "react-router";
+import {addSelectedActivity} from "../actions/activities";
+import {activities} from "../data/activitiesData";
+import {activitiesImages} from "../helpers/activitiesImages";
 
 const useStyles = makeStyles((theme) => {
 	return {
-		activity: {
+		root: {
 			width: "35ch",
+			margin: theme.spacing(2),
+		},
+		media: {
 			height: "20ch",
-			listStyle: "none",
 		},
 		buttomActivity: {
 			margin: theme.spacing(2),
@@ -34,7 +37,7 @@ export const Activities = () => {
 	const classes = useStyles();
 	const {activity} = useSelector((state) => state.activities);
 	const dispatch = useDispatch();
-	
+
 	if (activity) {
 		return <Redirect to="/form" />;
 	}
@@ -57,19 +60,28 @@ export const Activities = () => {
 				alignItems="center"
 			>
 				{activities.map((activity) => (
-					<ButtonBase
-						className={classes.buttomActivity}
-						key={activity.img}
+					<Card
+						className={classes.root}
 						onClick={() => dispatch(addSelectedActivity(activity))}
 					>
-						<GridListTile className={classes.activity}>
-							<img
-								src={activitiesImages(`./${activity.img}`)}
-								alt={activity.title}
+						<CardActionArea>
+							<CardMedia
+								className={classes.media}
+								component="img"
+								image={activitiesImages(`./${activity.img}`)}
+								title={activity.title}
 							/>
-							<GridListTileBar title={activity.title} />
-						</GridListTile>
-					</ButtonBase>
+							<CardContent>
+								<Typography
+									gutterBottom
+									variant="h5"
+									component="h2"
+								>
+									{activity.title}
+								</Typography>
+							</CardContent>
+						</CardActionArea>
+					</Card>
 				))}
 			</Grid>
 		</>

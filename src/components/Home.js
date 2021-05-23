@@ -1,7 +1,8 @@
 import {
+	Card,
+	CardContent,
+	CardMedia,
 	Grid,
-	GridListTile,
-	GridListTileBar,
 	makeStyles,
 } from "@material-ui/core";
 import {Typography} from "@material-ui/core";
@@ -13,10 +14,8 @@ import {activitiesImages} from "../helpers/activitiesImages";
 
 const useStyles = makeStyles((theme) => {
 	return {
-		activity: {
+		root: {
 			width: "35ch",
-			height: "20ch",
-			listStyle: "none",
 			margin: theme.spacing(2),
 		},
 		title: {
@@ -28,6 +27,9 @@ const useStyles = makeStyles((theme) => {
 			color: theme.palette.primary.dark,
 			position: "absolute",
 			top: "40%",
+		},
+		media: {
+			height: "20ch",
 		},
 	};
 });
@@ -70,22 +72,30 @@ export const Home = () => {
 					</Typography>
 				) : (
 					activities.map(({activity, date}) => (
-						<GridListTile className={classes.activity}>
-							<img
-								src={activitiesImages(`./${activity.img}`)}
-								alt={activity.title}
-							/>
-							<GridListTileBar
+						<Card className={classes.root}>
+							<CardMedia
+								className={classes.media}
+								component="img"
+								image={activitiesImages(`./${activity.img}`)}
 								title={activity.title}
-								subtitle={
-									<span>
-										{moment(date).format(
-											"DD/MM/yyyy HH:mm"
-										)}
-									</span>
-								}
 							/>
-						</GridListTile>
+							<CardContent>
+								<Typography
+									gutterBottom
+									variant="h5"
+									component="h2"
+								>
+									{activity.title}
+								</Typography>
+								<Typography
+									variant="body2"
+									color="textSecondary"
+									component="p"
+								>
+									{moment(date).format("DD/MM/yyyy HH:mm")}
+								</Typography>
+							</CardContent>
+						</Card>
 					))
 				)}
 			</Grid>
