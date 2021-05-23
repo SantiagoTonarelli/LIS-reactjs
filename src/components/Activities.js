@@ -77,6 +77,7 @@ export const Activities = () => {
 									gutterBottom
 									variant="h5"
 									component="h2"
+									align="center"
 								>
 									{activity.title}
 								</Typography>
