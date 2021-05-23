@@ -7,7 +7,7 @@ export const startAddActivity = (activity) => {
 		setTimeout(() => {
 			dispatch(addActivity(activity));
 			dispatch(endLoading());
-		}, 3000);
+		}, 2000);
 	};
 };
 
