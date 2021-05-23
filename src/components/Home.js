@@ -9,6 +9,7 @@ import {Typography} from "@material-ui/core";
 import moment from "moment";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+
 import {deleteSelectedActivity} from "../actions/activities";
 import {activitiesImages} from "../helpers/activitiesImages";
 

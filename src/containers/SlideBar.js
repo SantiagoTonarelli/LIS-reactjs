@@ -12,9 +12,9 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import {Typography} from "@material-ui/core";
 
 import imageIcon from "../images/logo-LIS.png";
-import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -77,11 +77,7 @@ export const SlideBar = () => {
 		>
 			<Link className={classes.link} exact="true" to="/">
 				<ListItem>
-					<img
-						className={classes.logo}
-						alt="logo"
-						src={imageIcon}
-					/>
+					<img className={classes.logo} alt="logo" src={imageIcon} />
 				</ListItem>
 			</Link>
 			<Divider />

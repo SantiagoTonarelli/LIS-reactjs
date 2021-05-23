@@ -10,6 +10,7 @@ import {Typography} from "@material-ui/core";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router";
+
 import {addSelectedActivity} from "../actions/activities";
 import {activities} from "../data/activitiesData";
 import {activitiesImages} from "../helpers/activitiesImages";
