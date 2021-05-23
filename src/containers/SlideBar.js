@@ -13,7 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
 
 import imageIcon from "../images/logo-LIS.png";
-import { Typography } from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -36,10 +36,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 	logoAppBar: {
 		width: "15ch",
-		justify:"center",
-				alignItems:"center",
+		justify: "center",
+		alignItems: "center",
 		paddingTop: theme.spacing(0),
 		paddingButtom: theme.spacing(0),
+	},
+	link: {
+		textDecoration: "none",
+		color: theme.palette.primary.main,
+		visited: {
+			color: theme.palette.light,
+		},
 	},
 }));
 
@@ -67,26 +74,31 @@ export const SlideBar = () => {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
-			<ListItem>
-				<Link className="link" exact to="/">
+			<Link className={classes.link} exact="true" to="/">
+				<ListItem>
 					<img
 						className={classes.logo}
-						alt="stack overflow"
+						alt="logo"
 						src={imageIcon}
 					/>
-				</Link>
-			</ListItem>
+				</ListItem>
+			</Link>
 			<Divider />
 			<List>
 				{[
 					{text: "Agendarme a una actividad", route: "/activities"},
-					{text: "Mis actividades", route: "/form"},
+					{text: "Agenda", route: "/"},
 				].map((value) => (
-					<ListItem button key={value.text}>
-						<Link className="link" exact to={value.route}>
+					<Link
+						key={value.text}
+						className={classes.link}
+						exact="true"
+						to={value.route}
+					>
+						<ListItem button key={value.text}>
 							<ListItemText primary={value.text} />
-						</Link>
-					</ListItem>
+						</ListItem>
+					</Link>
 				))}
 			</List>
 		</div>
@@ -106,7 +118,7 @@ export const SlideBar = () => {
 						>
 							<MenuIcon />
 						</IconButton>
-						<Typography variant="h6" className={classes.title}/>
+						<Typography variant="h6" className={classes.title} />
 						<img
 							className={classes.logoAppBar}
 							alt="stack overflow"

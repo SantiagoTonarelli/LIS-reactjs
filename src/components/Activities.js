@@ -7,6 +7,9 @@ import {
 } from "@material-ui/core";
 import {Typography} from "@material-ui/core";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router";
+import { addSelectedActivity } from "../actions/activities";
 import { activities } from "../data/activitiesData";
 import { activitiesImages } from "../helpers/activitiesImages";
 
@@ -29,6 +32,12 @@ const useStyles = makeStyles((theme) => {
 
 export const Activities = () => {
 	const classes = useStyles();
+	const {activity} = useSelector((state) => state.activities);
+	const dispatch = useDispatch();
+	
+	if (activity) {
+		return <Redirect to="/form" />;
+	}
 
 	return (
 		<>
@@ -47,19 +56,21 @@ export const Activities = () => {
 				justify="center"
 				alignItems="center"
 			>
-				{
-					//TODO si no hay actividades
-					activities.map((activity) => (
-						<ButtonBase className={classes.buttomActivity} key={activity.img}>
-							<GridListTile								
-								className={classes.activity}
-							> 
-								<img src={activitiesImages(`./${activity.img}`)} alt={activity.title} />
-								<GridListTileBar title={activity.title} />
-							</GridListTile>
-						</ButtonBase>
-					))
-				}
+				{activities.map((activity) => (
+					<ButtonBase
+						className={classes.buttomActivity}
+						key={activity.img}
+						onClick={() => dispatch(addSelectedActivity(activity))}
+					>
+						<GridListTile className={classes.activity}>
+							<img
+								src={activitiesImages(`./${activity.img}`)}
+								alt={activity.title}
+							/>
+							<GridListTileBar title={activity.title} />
+						</GridListTile>
+					</ButtonBase>
+				))}
 			</Grid>
 		</>
 	);
