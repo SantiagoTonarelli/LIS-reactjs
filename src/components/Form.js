@@ -176,19 +176,30 @@ export function Form({history}) {
 				direction="column"
 				justify="center"
 				alignItems="center"
-				className={classes.progress}
 			>
-				<CircularProgress color="primary" thickness={4.0} size={90} />
-
-				<Typography
-					align="center"
-					variant="h5"
-					component="h2"
-					gutterBottom
-					className={classes.title}
+				<Grid
+					container
+					direction="column"
+					justify="center"
+					alignItems="center"
+					className={classes.progress}
 				>
-					Procesando...
-				</Typography>
+					<CircularProgress
+						color="primary"
+						thickness={4.0}
+						size={90}
+					/>
+
+					<Typography
+						align="center"
+						variant="h5"
+						component="h2"
+						gutterBottom
+						className={classes.title}
+					>
+						Procesando...
+					</Typography>
+				</Grid>
 			</Grid>
 		);
 	}

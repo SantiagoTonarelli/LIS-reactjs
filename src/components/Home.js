@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => {
 			color: theme.palette.primary.dark,
 		},
 		error: {
-			margin: theme.spacing(4),
+			margin: theme.spacing(8),
 			color: theme.palette.primary.dark,
 			position: "absolute",
 			top: "40%",
