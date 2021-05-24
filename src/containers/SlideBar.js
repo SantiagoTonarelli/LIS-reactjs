@@ -12,7 +12,9 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import {Typography} from "@material-ui/core";
+import {ListItemIcon, Typography} from "@material-ui/core";
+import SportsTennisIcon from "@material-ui/icons/SportsTennis";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 
 import imageIcon from "../images/logo-LIS.png";
 
@@ -83,9 +85,9 @@ export const SlideBar = () => {
 			<Divider />
 			<List>
 				{[
-					{text: "Agendarme a una actividad", route: "/activities"},
+					{text: "Agendarme", route: "/activities"},
 					{text: "Agenda", route: "/"},
-				].map((value) => (
+				].map((value, index) => (
 					<Link
 						key={value.text}
 						className={classes.link}
@@ -93,6 +95,13 @@ export const SlideBar = () => {
 						to={value.route}
 					>
 						<ListItem button key={value.text}>
+							<ListItemIcon>
+								{index % 2 === 0 ? (
+									<SportsTennisIcon color="primary" />
+								) : (
+									<CalendarTodayIcon color="primary" />
+								)}
+							</ListItemIcon>
 							<ListItemText primary={value.text} />
 						</ListItem>
 					</Link>
