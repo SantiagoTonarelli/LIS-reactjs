@@ -16,7 +16,7 @@ export const AppRouter = () => {
 	const isTabletOrMobile = useMediaQuery({query: "(orientation: portrait)"});
 	return (
 		<Router>
-			{!isTabletOrMobile && <SlideBar />}
+			<SlideBar />
 			<Switch>
 				<Route exact path="/form" component={Form} />
 				<Route exact path="/activities" component={Activities} />

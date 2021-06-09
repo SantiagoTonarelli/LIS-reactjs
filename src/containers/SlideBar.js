@@ -10,7 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {ListItemIcon, Typography} from "@material-ui/core";
 import SportsTennisIcon from "@material-ui/icons/SportsTennis";
@@ -55,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const SlideBar = () => {
 	const classes = useStyles();
+	const location = useLocation();
+
 	const [state, setState] = React.useState({
 		left: false,
 	});
@@ -125,7 +127,9 @@ export const SlideBar = () => {
 						>
 							<MenuIcon />
 						</IconButton>
-						<Typography variant="h6" className={classes.title} />
+						<Typography variant="h6" className={classes.title}>
+							{location.pathname === "/" ? "Agenda" : "Agendarme"}
+						</Typography>
 						<img
 							className={classes.logoAppBar}
 							alt="stack overflow"
