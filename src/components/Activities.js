@@ -10,6 +10,7 @@ import {Typography} from "@material-ui/core";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router";
+import {useMediaQuery} from "react-responsive";
 
 import {addSelectedActivity} from "../actions/activities";
 import {activities} from "../data/activitiesData";
@@ -31,11 +32,15 @@ const useStyles = makeStyles((theme) => {
 			margin: theme.spacing(2),
 			color: theme.palette.primary.dark,
 		},
+		container: {
+			marginBottom:"15%",
+		},
 	};
 });
 
 export const Activities = () => {
 	const classes = useStyles();
+	const isTabletOrMobile = useMediaQuery({query: "(orientation: portrait)"});
 	const {activity} = useSelector((state) => state.activities);
 	const dispatch = useDispatch();
 
@@ -44,7 +49,7 @@ export const Activities = () => {
 	}
 
 	return (
-		<>
+		<div className={isTabletOrMobile && classes.container}>
 			<Typography
 				align="center"
 				variant="h3"
@@ -86,6 +91,6 @@ export const Activities = () => {
 					</Card>
 				))}
 			</Grid>
-		</>
+		</div>
 	);
 };
