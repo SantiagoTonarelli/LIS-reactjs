@@ -46,15 +46,6 @@ export const Home = () => {
 
 	return (
 		<>
-			<Typography
-				align="center"
-				variant="h3"
-				component="h2"
-				gutterBottom
-				className={classes.title}
-			>
-				Agenda
-			</Typography>
 			<Grid
 				container
 				direction="row"

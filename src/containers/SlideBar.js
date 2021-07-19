@@ -15,6 +15,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import {ListItemIcon, Typography} from "@material-ui/core";
 import SportsTennisIcon from "@material-ui/icons/SportsTennis";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import {useMediaQuery} from "react-responsive";
 
 import imageIcon from "../images/logo-LIS.png";
 
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 export const SlideBar = () => {
 	const classes = useStyles();
 	const location = useLocation();
+	const isTabletOrMobile = useMediaQuery({query: "(orientation: portrait)"});
 
 	const [state, setState] = React.useState({
 		left: false,
@@ -118,15 +120,17 @@ export const SlideBar = () => {
 				<CssBaseline />
 				<AppBar position="static" color="primary">
 					<Toolbar>
-						<IconButton
-							edge="start"
-							className={classes.menuButton}
-							color="inherit"
-							aria-label="menu"
-							onClick={toggleDrawer("left", true)}
-						>
-							<MenuIcon />
-						</IconButton>
+						{!isTabletOrMobile && (
+							<IconButton
+								edge="start"
+								className={classes.menuButton}
+								color="inherit"
+								aria-label="menu"
+								onClick={toggleDrawer("left", true)}
+							>
+								<MenuIcon />
+							</IconButton>
+						)}
 						<Typography variant="h6" className={classes.title}>
 							{location.pathname === "/" ? "Agenda" : "Agendarme"}
 						</Typography>
