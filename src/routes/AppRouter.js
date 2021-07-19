@@ -8,7 +8,7 @@ import {
 import {Activities} from "../components/Activities";
 import {Form} from "../components/Form";
 import {Home} from "../components/Home";
-import {SlideBar} from "../containers/SlideBar";
+import {SideBar} from "../containers/SideBar";
 import {useMediaQuery} from "react-responsive";
 import BottomNavigationCustom from "../containers/BottomNavigationCustom";
 
@@ -16,7 +16,7 @@ export const AppRouter = () => {
 	const isTabletOrMobile = useMediaQuery({query: "(orientation: portrait)"});
 	return (
 		<Router>
-			<SlideBar />
+			<SideBar />
 			<Switch>
 				<Route exact path="/form" component={Form} />
 				<Route exact path="/activities" component={Activities} />

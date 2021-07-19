@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const SlideBar = () => {
+export const SideBar = () => {
 	const classes = useStyles();
 	const location = useLocation();
 	const isTabletOrMobile = useMediaQuery({query: "(orientation: portrait)"});
